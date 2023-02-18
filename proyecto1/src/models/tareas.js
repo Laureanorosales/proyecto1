@@ -11,4 +11,4 @@ const tareasSchema = new Schema({
     type: Boolean,
   },
 });
-export default models.Tareas || model("tareas", tareasSchema)
+export default models.Tareas || model("Tareas", tareasSchema)
