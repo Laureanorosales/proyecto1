@@ -8,7 +8,7 @@ export default async (req, res) => {
     case "POST":
       try {
         const { username, password } = req.body;
-        console.log(username);
+        console.log('user',req.body)
         const user = await usuario
           .findOne({ username })
           .select("username password");
