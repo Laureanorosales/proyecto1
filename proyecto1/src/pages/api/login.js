@@ -8,10 +8,9 @@ export default async (req, res) => {
     case "POST":
       try {
         const { username, password } = req.body;
-        console.log('user',req.body)
         const user = await usuario
           .findOne({ username })
-          .select("username password");
+          .select("username password role");
         if (!user) {
           throw new httpError(404, `Usuario no encontrado`);
         }

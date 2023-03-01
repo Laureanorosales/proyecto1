@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -6,6 +6,7 @@ import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import propTypes from "prop-types";
 import axios from "axios";
 
 const style = {
@@ -20,8 +21,12 @@ const style = {
   p: 4,
 };
 
-const Login = () => {
+const Login = (props) => {
+  const { isLogged, setIsLogged } = props;
   const [open, setOpen] = React.useState(false);
+  const [data, setData] = React.useState();
+  const [logged, setLogged] = React.useState()
+  const [userData, setUserData] = React.useState()
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [user, setUser] = React.useState({
@@ -39,25 +44,43 @@ const Login = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      await axios.post("api/login", user);
+      const usuario = await axios.post("api/login", user);
+      setData(usuario);
       setUser({
         username: "",
         password: "",
       });
+      setIsLogged(true);
+      localStorage.setItem("user", JSON.stringify(usuario.data));
+      localStorage.setItem("isLogged", true);
       toast.success("Bienvenido!");
       setOpen(false);
     } catch (err) {
       console.log(err);
-      toast.error(err.response.data.message)
+      toast.error(err.response.data.message);
+      localStorage.setItem("user", null);
+      localStorage.setItem("isLogged", false);
     }
   };
 
+React.useEffect(()=>{
+const loginUser = localStorage.getItem('isLogged')
+setLogged(loginUser)
+const user = localStorage.getItem('user')
+setUserData(user.trim())
+},[isLogged])
+
+const userInfo = JSON.parse(userData ? userData: null)
   return (
     <div>
       <ToastContainer position="top-center" theme="colored" autoClose={2000} />
-      <Button sx={{ color: "#fff" }} onClick={handleOpen}>
-        LOGIN
-      </Button>
+      {logged ? (
+        <Button sx={{ color: "#fff" }}>{userInfo?.username}</Button>
+      ) : (
+        <Button sx={{ color: "#fff" }} onClick={handleOpen}>
+          Login
+        </Button>
+      )}
       <Modal
         open={open}
         onClose={handleClose}
@@ -67,7 +90,7 @@ const Login = () => {
         <Box sx={style}>
           <form onSubmit={handleSubmit}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Login
+              {isLogged ? data?.data?.username : "Login"}
             </Typography>
             <TextField
               sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
@@ -96,6 +119,10 @@ const Login = () => {
       </Modal>
     </div>
   );
+};
+Login.propTypes = {
+  isLogged: propTypes.bool,
+  setIsLogged: propTypes.func,
 };
 
 export default Login;

@@ -10,14 +10,14 @@ const usuarioSchema = new Schema({
   password: {
     type: String,
     required: [true, "password is mandatory"],
-    minlength: [8, "password must have at least 3 characters"],
+    minlength: [6, "password must have at least 6 characters"],
     maxlength: [99, "user name must be shorter than 99 characters"],
     select: false,
   },
-  tasks: {
-    type: [String],
-    ref: "Tareas",
-  },
+  role:{
+    type: String,
+    required: [true, "role is mandatory"],
+  }
 });
 
 export default models.Usuario || model('Usuario', usuarioSchema)
