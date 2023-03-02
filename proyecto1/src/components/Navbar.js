@@ -22,7 +22,7 @@ const Navbar = () => {
             sx={{ mr: 2 }}
           ></IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            FARMACIAS NANITO
+            Farmacia
           </Typography>
           <Login isLogged={isLogged} setIsLogged={setIsLogged} />
         </Toolbar>
