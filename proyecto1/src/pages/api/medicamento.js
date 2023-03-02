@@ -19,7 +19,6 @@ export default async (req, res) => {
     case "GET":
       try {
         const { NombreMed, LaboratorioDes, Stock, Valor } = req.body;
-        console.log("medic", req.body);
         const medic = await medicamentos
           .findOne({ NombreMed })
           .select("NombreMed");

@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+//@mui
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
+//react-toastify
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+//proptypes
 import propTypes from "prop-types";
+//axios
 import axios from "axios";
+//next
+import { useRouter } from "next/router";
+
+
 
 const style = {
   position: "absolute",
@@ -23,6 +31,7 @@ const style = {
 
 const Login = (props) => {
   const { isLogged, setIsLogged } = props;
+  const router = useRouter()
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState();
   const [logged, setLogged] = React.useState()
@@ -55,6 +64,9 @@ const Login = (props) => {
       localStorage.setItem("isLogged", true);
       toast.success("Bienvenido!");
       setOpen(false);
+      if(usuario.data.role === 'user'){
+        router.push('/homeuser')
+      }
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
@@ -62,13 +74,15 @@ const Login = (props) => {
       localStorage.setItem("isLogged", false);
     }
   };
+  
 
 React.useEffect(()=>{
 const loginUser = localStorage.getItem('isLogged')
 setLogged(loginUser)
 const user = localStorage.getItem('user')
-setUserData(user.trim())
+setUserData(user?.trim())
 },[isLogged])
+
 
 const userInfo = JSON.parse(userData ? userData: null)
   return (
