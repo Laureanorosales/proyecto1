@@ -30,7 +30,7 @@ const homeuser = () => {
     router.push("/medicamentos");
   };
   const sendToDatos = () => {
-    router.push("/misdatos");
+    router.push("/datauser");
   };
 
   return (
