@@ -67,6 +67,10 @@ const Login = (props) => {
       if(usuario.data.role === 'user'){
         router.push('/homeuser')
       }
+      if(usuario.data.role === 'admin'){
+        router.push('/homeadmin')
+      }
+
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);

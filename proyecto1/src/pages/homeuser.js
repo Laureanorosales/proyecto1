@@ -37,7 +37,7 @@ const homeuser = () => {
     <div>
       <Navbar logged={logged} />
       <div>
-        <p>Bienvenido {userInfo?.username}</p>
+        <p>Bienvenido {userInfo?.username}(user)</p>
         <p>Seleccione una opcion</p>
       </div>
       <div>
