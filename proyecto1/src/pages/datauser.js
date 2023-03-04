@@ -45,7 +45,6 @@ const datauser = () => {
         <p>Integrantes: </p>
       </div>
       <div>
-        <Button variant="contained">Guardar cambios</Button>
         <Button onClick={sendToHomeUser} variant="contained">
           Salir
         </Button>
