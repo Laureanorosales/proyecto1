@@ -14,10 +14,20 @@ const usuarioSchema = new Schema({
     maxlength: [99, "user name must be shorter than 99 characters"],
     select: false,
   },
-  role:{
+  role: {
     type: String,
     required: [true, "role is mandatory"],
-  }
+  },
+  tel: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-export default models.Usuario || model('Usuario', usuarioSchema)
+export default models.Usuario || model("Usuario", usuarioSchema);

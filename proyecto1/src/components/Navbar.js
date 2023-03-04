@@ -9,7 +9,7 @@ import Login from "./Login";
 
 
 const Navbar = () => {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

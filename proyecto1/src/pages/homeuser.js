@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 const homeuser = () => {
   const [user, setUser] = useState();
-  const [logged, setLogged] = useState();
+  const [logged, setLogged] = useState(false);
   const router = useRouter();
 
   useEffect(() => {

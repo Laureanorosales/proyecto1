@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 // @mui
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 //next
 import { useRouter } from "next/router";
 
@@ -46,7 +46,7 @@ const datauser = () => {
       </div>
       <div>
         <Button variant="contained">Guardar cambios</Button>
-        <Button onclick={sendToHomeUser} variant="contained">
+        <Button onClick={sendToHomeUser} variant="contained">
           Salir
         </Button>
       </div>

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { TextField } from "@mui/material";
+import { TextField, Menu, MenuItem } from "@mui/material";
 //react-toastify
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,8 +14,6 @@ import propTypes from "prop-types";
 import axios from "axios";
 //next
 import { useRouter } from "next/router";
-
-
 
 const style = {
   position: "absolute",
@@ -31,11 +29,13 @@ const style = {
 
 const Login = (props) => {
   const { isLogged, setIsLogged } = props;
-  const router = useRouter()
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState();
-  const [logged, setLogged] = React.useState()
-  const [userData, setUserData] = React.useState()
+  const [logged, setLogged] = React.useState();
+  const [userData, setUserData] = React.useState();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [user, setUser] = React.useState({
@@ -48,6 +48,14 @@ const Login = (props) => {
       ...user,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const openMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
   };
 
   const handleSubmit = async (e) => {
@@ -64,13 +72,12 @@ const Login = (props) => {
       localStorage.setItem("isLogged", true);
       toast.success("Bienvenido!");
       setOpen(false);
-      if(usuario.data.role === 'user'){
-        router.push('/homeuser')
+      if (usuario.data.role === "user") {
+        router.push("/homeuser");
       }
-      if(usuario.data.role === 'admin'){
-        router.push('/homeadmin')
+      if (usuario.data.role === "admin") {
+        router.push("/homeadmin");
       }
-
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
@@ -78,22 +85,43 @@ const Login = (props) => {
       localStorage.setItem("isLogged", false);
     }
   };
-  
 
-React.useEffect(()=>{
-const loginUser = localStorage.getItem('isLogged')
-setLogged(loginUser)
-const user = localStorage.getItem('user')
-setUserData(user?.trim())
-},[isLogged])
+  React.useEffect(() => {
+    const loginUser = localStorage.getItem("isLogged");
+    setLogged(loginUser?.trim());
+    const user = localStorage.getItem("user");
+    setUserData(user?.trim());
+  }, [isLogged, logged]);
 
-
-const userInfo = JSON.parse(userData ? userData: null)
+  const userInfo = JSON.parse(userData ? userData : null);
+  console.log(logged)
   return (
     <div>
       <ToastContainer position="top-center" theme="colored" autoClose={2000} />
-      {logged ? (
-        <Button sx={{ color: "#fff" }}>{userInfo?.username}</Button>
+      {isLogged ? (
+        <div>
+          <Button
+            id="basic-button"
+            aria-controls={openMenu ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={openMenu ? "true" : undefined}
+            onClick={handleClick}
+            variant='contained'
+          >
+            {userInfo?.username}
+          </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={openMenu}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={handleCloseMenu}>Cerrar Sesión</MenuItem>
+          </Menu>
+        </div>
       ) : (
         <Button sx={{ color: "#fff" }} onClick={handleOpen}>
           Login
