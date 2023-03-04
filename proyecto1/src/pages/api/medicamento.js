@@ -17,9 +17,11 @@ export default async (req, res) => {
       break;
     case "GET":
       try {
-        const { search  } = req.query;
+        const { search } = req.query;
         if (!search) {
-          const medic = await medicamentos.find({}).select("NombreMed LaboratorioDes Valor");
+          const medic = await medicamentos
+            .find({})
+            .select("NombreMed LaboratorioDes Valor");
           if (!medic) {
             throw new httpError(404, `Medicamento no encontrado`);
           }
@@ -27,13 +29,26 @@ export default async (req, res) => {
         }
         if (search) {
           const medic = await medicamentos
-            .find({ NombreMed :{$regex: new RegExp(search)}})
+            .find({ NombreMed: { $regex: new RegExp(search) } })
             .select("NombreMed LaboratorioDes Valor");
           if (!medic) {
             throw new httpError(404, `Medicamento no encontrado`);
           }
           res.status(200).send(medic);
         }
+      } catch (err) {
+        res.status(err?.status || 500).send({ message: err.message });
+      }
+    case "PUT":
+      try {
+        const { NombreMed } = req.body;
+        console.log(NombreMed)
+        const medEnc = await medicamentos.findOne({ NombreMed });
+        if (!medEnc) {
+          throw new httpError(404, `Medicamento no encontrado`);
+        }
+        await medicamentos.updateOne({ NombreMed }, { active: false });
+        res.status(200).send({ message: "success" });
       } catch (err) {
         res.status(err?.status || 500).send({ message: err.message });
       }

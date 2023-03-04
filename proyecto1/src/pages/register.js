@@ -31,7 +31,7 @@ const register = () => {
   };
 
   const handleChange = (e) => {
-    setUser({
+    setUserDelete({
       ...userDelete,
       [e.target.name]: e.target.value,
     });
