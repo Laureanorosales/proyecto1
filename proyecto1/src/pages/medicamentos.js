@@ -1,41 +1,75 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import { TextField, Box } from "@mui/material";
+import { TextField, Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 //@mui
-import axios from 'axios'
+import axios from "axios";
 //next
 import { useRouter } from "next/router";
+//react-toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const medicamentos = () => {
-    const [meds, setMeds] = useState([])
-    const [search, setSearch] = useState('')
-    const [logged, setLogged] = useState(false);
-    const router = useRouter();
-  
-    useEffect(() => {
-      const isLogged = localStorage.getItem("isLogged");
-      if (!isLogged) {
-        router.push("/");
-      }
-    }, []);
-    useEffect(() => {
-        const isLogged = localStorage.getItem("isLogged");
-        setLogged(isLogged);
-      }, [logged]);
+  const [meds, setMeds] = useState([]);
+  const [med, setMed] = useState({
+    NombreMed: "",
+    create: true,
+    Stock: "",
+  });
+  const [search, setSearch] = useState("");
+  const [logged, setLogged] = useState(false);
+  const router = useRouter();
 
-    const getMeds = async () => {
-        const {data} = await axios.get('/api/medicamento', {params:{search}})
-        setMeds(data)
+  useEffect(() => {
+    const isLogged = localStorage.getItem("isLogged");
+    if (!isLogged) {
+      router.push("/");
     }
+  }, []);
+  useEffect(() => {
+    const isLogged = localStorage.getItem("isLogged");
+    setLogged(isLogged);
+  }, [logged]);
 
-    useEffect(()=>{
-        getMeds()
-    },[search])
+  const getMeds = async () => {
+    const { data } = await axios.get("/api/medicamento", {
+      params: { search },
+    });
+    setMeds(data);
+  };
 
-    const handleSearch = (e) => {
-      setSearch(e.target.value)
+  useEffect(() => {
+    getMeds();
+  }, [search]);
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    try {
+      e.preventDefault();
+      axios.put("api/medicamento", med);
+      setMed({
+        NombreMed: "",
+        create: true,
+        Stock: "",
+      });
+      toast.success("Alta realizada con exito!");
+      router.push("/homeadmin");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response.data.message);
     }
+  };
+
+  const handleChange = (e) => {
+    setMed({
+      ...med,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const columns = [
     {
@@ -62,6 +96,7 @@ const medicamentos = () => {
   return (
     <div>
       <Navbar />
+      <ToastContainer position="top-center" theme="colored" autoClose={2000} />
       <div>
         <p>Nombre de producto</p>
 
@@ -83,6 +118,44 @@ const medicamentos = () => {
           experimentalFeatures={{ newEditingApi: true }}
         />
       </Box>
+      <div>
+        <p>Realizar una venta</p>
+        <form onSubmit={handleSubmit}>
+          <Box sx={{ width: "400px" }}>
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="Nombre"
+              id="nombre"
+              value={med.NombreMed}
+              name="NombreMed"
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="Cantidad"
+              id="Stock"
+              value={med.Stock}
+              name="Stock"
+              type='number'
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="Valor"
+              id="valor"
+              name="valor"
+              type='number'
+              onChange={handleChange}
+            />
+            <Button sx={{ float: "right" }} variant="contained" type="submit">
+              Dar de alta
+            </Button>
+          </Box>
+        </form>
+      </div>
     </div>
   );
 };

@@ -41,14 +41,28 @@ export default async (req, res) => {
       }
     case "PUT":
       try {
-        const { NombreMed } = req.body;
-        console.log(NombreMed)
-        const medEnc = await medicamentos.findOne({ NombreMed });
-        if (!medEnc) {
-          throw new httpError(404, `Medicamento no encontrado`);
+        const { NombreMed, create, Stock } = req.body;
+        if (!create) {
+          const medEnc = await medicamentos.findOne({ NombreMed });
+          if (!medEnc) {
+            throw new httpError(404, `Medicamento no encontrado`);
+          }
+          await medicamentos.updateOne({ NombreMed }, { active: false });
+          res.status(200).send({ message: "success" });
         }
-        await medicamentos.updateOne({ NombreMed }, { active: false });
-        res.status(200).send({ message: "success" });
+        if (create) {
+          const medEnc = await medicamentos
+            .findOne({ NombreMed })
+            .select("Stock");
+          if (!medEnc) {
+            throw new httpError(404, `Medicamento no encontrado`);
+          }
+          await medicamentos.updateOne(
+            { NombreMed },
+            { Stock: medEnc.Stock - Stock }
+          );
+          res.status(200).send({ message: "success" });
+        }
       } catch (err) {
         res.status(err?.status || 500).send({ message: err.message });
       }
