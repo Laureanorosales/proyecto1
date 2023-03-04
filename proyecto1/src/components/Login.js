@@ -94,7 +94,7 @@ const Login = (props) => {
   }, [isLogged, logged]);
 
   const userInfo = JSON.parse(userData ? userData : null);
-  console.log(logged)
+
   return (
     <div>
       <ToastContainer position="top-center" theme="colored" autoClose={2000} />
