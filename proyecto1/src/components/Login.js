@@ -62,6 +62,10 @@ const Login = (props) => {
     try {
       e.preventDefault();
       const usuario = await axios.post("api/login", user);
+      if(usuario.data.active === false){
+        toast.error('Usuario eliminado');
+        router.push('/')
+      }
       setData(usuario);
       setUser({
         username: "",
@@ -70,7 +74,6 @@ const Login = (props) => {
       setIsLogged(true);
       localStorage.setItem("user", JSON.stringify(usuario.data));
       localStorage.setItem("isLogged", true);
-      toast.success("Bienvenido!");
       setOpen(false);
       if (usuario.data.role === "user") {
         router.push("/homeuser");

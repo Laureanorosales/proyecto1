@@ -10,7 +10,7 @@ export default async (req, res) => {
         const { username, password } = req.body;
         const user = await usuario
           .findOne({ username })
-          .select("username password role");
+          .select("username password role active");
         if (!user) {
           throw new httpError(404, `Usuario no encontrado`);
         }
