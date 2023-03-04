@@ -41,7 +41,7 @@ const medicamentos = () => {
 
   useEffect(() => {
     getMeds();
-  }, [search, meds]);
+  }, [search]);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
