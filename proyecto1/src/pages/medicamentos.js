@@ -41,7 +41,7 @@ const medicamentos = () => {
 
   useEffect(() => {
     getMeds();
-  }, [search]);
+  }, [search, meds]);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -56,8 +56,9 @@ const medicamentos = () => {
         create: true,
         Stock: "",
       });
-      toast.success("Alta realizada con exito!");
-      router.push("/homeadmin");
+      toast.success("Venta realizada con exito!");
+      getMeds();
+      // router.push("/homeadmin");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
@@ -87,6 +88,13 @@ const medicamentos = () => {
     {
       field: "Valor",
       headerName: "Valor",
+      type: "number",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "Stock",
+      headerName: "Stock",
       type: "number",
       width: 110,
       editable: true,
@@ -151,7 +159,7 @@ const medicamentos = () => {
               onChange={handleChange}
             />
             <Button sx={{ float: "right" }} variant="contained" type="submit">
-              Dar de alta
+              Realizar venta
             </Button>
           </Box>
         </form>
