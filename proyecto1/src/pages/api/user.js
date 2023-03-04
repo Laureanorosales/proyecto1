@@ -1,5 +1,6 @@
 import usuario from "@/models/usuario";
 import { dbConnect } from "@/utils/mongoose";
+import httpError from "@/helpers/httpError";
 dbConnect();
 
 export default async (req, res) => {
@@ -16,8 +17,12 @@ export default async (req, res) => {
     case "PUT":
       try {
         const { username } = req.body;
-        await usuario.updateOne({ username }, {  active: false });
-        res.status(200).send({message:'success'})
+        const userEnc = await usuario.findOne({ username });
+        if (!userEnc) {
+          throw new httpError(404, `Usuario no encontrado`);
+        }
+        await usuario.updateOne({ username }, { active: false });
+        res.status(200).send({ message: "success" });
       } catch (err) {
         res.status(err?.status || 500).send({ message: err.message });
       }

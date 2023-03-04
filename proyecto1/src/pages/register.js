@@ -20,19 +20,38 @@ const register = () => {
     tel: "",
     email: "",
   });
-
-  const handleChange = (e) => {
-    setUser({
+  const [userDelete, setUserDelete] = useState({
+    username: "",
+  });
+  const handleChangeDelete = (e) => {
+    setUserDelete({
       ...user,
       [e.target.name]: e.target.value,
     });
   };
 
+  const handleChange = (e) => {
+    setUser({
+      ...userDelete,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleDelete = async (e) => {
+    try {
+      e.preventDefault();
+      await axios.put("api/user", userDelete);
+      toast.success("Baja realizada con exito!");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response.data.message);
+    }
+  };
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const usuario = await axios.post("api/user", user);
-      console.log(usuario);
+      await axios.post("api/user", user);
       setUser({
         username: "",
         password: "",
@@ -50,13 +69,14 @@ const register = () => {
   return (
     <div>
       <Navbar />
+      <ToastContainer position="top-center" theme="colored" autoClose={2000} />
       <div>
         <p>Alta de cliente</p>
         <p>Ingrese:</p>
       </div>
-      <di>
+      <div>
         <form onSubmit={handleSubmit}>
-          <Box sx={{width:'400px'}}>
+          <Box sx={{ width: "400px" }}>
             <TextField
               sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
               variant="filled"
@@ -107,7 +127,25 @@ const register = () => {
             </Button>
           </Box>
         </form>
-      </di>
+      </div>
+      <div>
+        <p>Baja Cliente</p>
+        <p>Ingrese:</p>
+        <form onSubmit={handleDelete}>
+          <Box sx={{ width: "400px" }}>
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="usuario"
+              id="username"
+              value={userDelete.username}
+              name="username"
+              onChange={handleChangeDelete}
+            />
+            <Button sx={{ float: "right" }} variant="contained" type="submit">Dar de baja</Button>
+          </Box>
+        </form>
+      </div>
     </div>
   );
 };
