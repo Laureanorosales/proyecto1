@@ -19,7 +19,7 @@ const usuarioSchema = new Schema({
     required: [true, "role is mandatory"],
   },
   tel: {
-    type: String,
+    type: "number",
   },
   email: {
     type: String,

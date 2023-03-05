@@ -37,11 +37,12 @@ const datauser = () => {
       </div>
       <h2>Mis datos</h2>
       <div>
-        <p>Nombre de usuario: {userInfo?.username} </p>
-        <p>Contraseña: {userInfo?.password}</p>
-        <p>Edad: {userInfo?.edad}</p>
-        <p>Domicilio: {userInfo?.dom}</p>
-        <p>Rol: {userInfo?.role}</p>
+        <h4>Nombre de usuario: {userInfo?.username} </h4>
+        <h4>Contraseña: {userInfo?.password}</h4>
+        <h4>Edad: {userInfo?.edad}</h4>
+        <h4>Domicilio: {userInfo?.dom}</h4>
+        <h4>Rol: {userInfo?.role}</h4>
+        <h4>Estado: {userInfo?.active}</h4>
       </div>
       <div>
         <Button onClick={sendToHomeUser} variant="contained">

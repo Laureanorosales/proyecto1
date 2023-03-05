@@ -36,6 +36,9 @@ const homeadmin = () => {
   const sendToStock = () => {
     router.push("/stock");
   };
+  const sendToData = () => {
+    router.push("/datauser");
+  };
 
   return (
     <div>
@@ -53,6 +56,9 @@ const homeadmin = () => {
         </Button>
         <Button onClick={sendToStock} variant="contained">
           Administrar stock
+        </Button>
+        <Button onClick={sendToData} variant="contained">
+          Mis Datos
         </Button>
       </div>
     </div>

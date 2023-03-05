@@ -19,6 +19,8 @@ const register = () => {
     role: "",
     tel: "",
     email: "",
+    edad: "",
+    dom: "",
   });
   const [userDelete, setUserDelete] = useState({
     username: "",
@@ -58,6 +60,8 @@ const register = () => {
         role: "",
         tel: "",
         email: "",
+        edad: "",
+        dom: "",
       });
       toast.success("Alta realizada con exito!");
       router.push("/homeadmin");
@@ -160,7 +164,9 @@ const register = () => {
               name="username"
               onChange={handleChangeDelete}
             />
-            <Button sx={{ float: "right" }} variant="contained" type="submit">Dar de baja</Button>
+            <Button sx={{ float: "right" }} variant="contained" type="submit">
+              Dar de baja
+            </Button>
           </Box>
         </form>
       </div>
