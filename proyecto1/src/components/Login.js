@@ -55,7 +55,10 @@ const Login = (props) => {
     setAnchorEl(event.currentTarget);
   };
   const handleCloseMenu = () => {
+    localStorage.setItem('isLogged', false)
+    setLogged(false)
     setAnchorEl(null);
+    router.push('/')
   };
 
   const handleSubmit = async (e) => {
@@ -70,9 +73,9 @@ const Login = (props) => {
         username: "",
         password: "",
       });
-      setIsLogged(true);
       localStorage.setItem("user", JSON.stringify(usuario.data));
       localStorage.setItem("isLogged", true);
+      setIsLogged(true);
       setOpen(false);
       if (usuario.data.role === "user") {
         router.push("/homeuser");
@@ -90,17 +93,19 @@ const Login = (props) => {
 
   React.useEffect(() => {
     const loginUser = localStorage.getItem("isLogged");
-    setLogged(loginUser?.trim());
+    setLogged(JSON.parse(loginUser));
     const user = localStorage.getItem("user");
     setUserData(user?.trim());
   }, [isLogged, logged]);
+
+  console.log(logged)
 
   const userInfo = JSON.parse(userData ? userData : null);
 
   return (
     <div>
       <ToastContainer position="top-center" theme="colored" autoClose={2000} />
-      {isLogged ? (
+      {logged ? (
         <div>
           <Button
             id="basic-button"
