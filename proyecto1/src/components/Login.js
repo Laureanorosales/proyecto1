@@ -63,7 +63,6 @@ const Login = (props) => {
       e.preventDefault();
       const usuario = await axios.post("api/login", user);
       if(usuario.data.active === false){
-        toast.error('Usuario eliminado');
         router.push('/')
       }
       setData(usuario);

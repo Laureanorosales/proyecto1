@@ -27,14 +27,14 @@ const register = () => {
   });
   const handleChangeDelete = (e) => {
     setUserDelete({
-      ...user,
+      ...userDelete,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleChange = (e) => {
-    setUserDelete({
-      ...userDelete,
+    setUser({
+      ...user,
       [e.target.name]: e.target.value,
     });
   };
