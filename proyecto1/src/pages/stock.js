@@ -105,7 +105,7 @@ const stock = () => {
             />
           </div>
         </Box>
-        <Button type="submit" variant="contained">
+        <Button  type="submit" variant="contained">
           Dar de Alta
         </Button>
       </form>

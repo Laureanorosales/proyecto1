@@ -1,87 +1,143 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 // @mui
 import { Button } from "@mui/material";
 import { TextField, Box } from "@mui/material";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-
+import axios from "axios";
+import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
 const ventas = () => {
+  const [meds, setMeds] = useState([]);
+  const [med, setMed] = useState({
+    NombreMed: "",
+    create: true,
+    Stock: "",
+  });
+  const [search, setSearch] = useState("");
+  const [logged, setLogged] = useState(false);
+  const router = useRouter();
+  
+  const getMeds = async () => {
+    const { data } = await axios.get("/api/medicamento", {
+      params: { search },
+    });
+    setMeds(data);
+  };
+
+  useEffect(() => {
+    getMeds();
+  }, [search]);
+
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
     {
-      field: 'firstName',
-      headerName: 'First name',
+      field: "NombreMed",
+      headerName: "Nombre",
       width: 150,
       editable: true,
     },
     {
-      field: 'lastName',
-      headerName: 'Last name',
+      field: "LaboratorioDes",
+      headerName: "Laboratorio",
       width: 150,
       editable: true,
     },
     {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
+      field: "Valor",
+      headerName: "Valor",
+      type: "number",
       width: 110,
       editable: true,
     },
-   
+    {
+      field: "Stock",
+      headerName: "Stock",
+      type: "number",
+      width: 110,
+      editable: true,
+    },
   ];
+  const handleSubmit = (e) => {
+    try {
+      e.preventDefault();
+      axios.put("api/medicamento", med);
+      setMed({
+        NombreMed: "",
+        create: true,
+        Stock: "",
+      });
+      toast.success("Venta realizada con exito!");
+      getMeds();
+      // router.push("/homeadmin");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response.data.message);
+    }
+  };
+
+  const handleChange = (e) => {
+    setMed({
+      ...med,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div>
       <Navbar />
+      <ToastContainer position="top-center" theme="colored" autoClose={2000} />
       <br />
-      <h3>Realizar una venta</h3>
-      <p>Ingresar: </p>
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <div></div>
-        <div>
-          <TextField
-            required
-            id="outlined-required"
-            label="Nombre"
-            defaultValue=""
-          />{" "}
-          <br />
-          <TextField
-            required
-            id="outlined-required"
-            label="Valor"
-            defaultValue=""
-          />{" "}
-          <br />
-          <TextField
-            required
-            id="outlined-required"
-            label="Cantidad"
-            defaultValue=""
-          />
-        </div>
+      <div>
+      <p>Realizar una venta</p>
+        <form onSubmit={handleSubmit}>
+          <Box sx={{ width: "400px" }}>
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="Nombre"
+              id="nombre"
+              value={med.NombreMed}
+              name="NombreMed"
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="Cantidad"
+              id="Stock"
+              value={med.Stock}
+              name="Stock"
+              type='number'
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="Valor"
+              id="valor"
+              name="valor"
+              type='number'
+              onChange={handleChange}
+            />
+            <Button  variant="contained" type="submit">
+              Realizar venta
+            </Button>
+            </Box>
+            </form>
+           
+      <Box sx={{ height: 400, width: "50%" }}>
         <DataGrid
-        rows={""}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
+          rows={meds}
+          columns={columns}
+          getRowId={(row) => row._id}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          disableSelectionOnClick
+          experimentalFeatures={{ newEditingApi: true }}
+        />
       </Box>
+     
+      </div>
     </div>
   );
 };

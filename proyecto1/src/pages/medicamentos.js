@@ -47,30 +47,7 @@ const medicamentos = () => {
     setSearch(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    try {
-      e.preventDefault();
-      axios.put("api/medicamento", med);
-      setMed({
-        NombreMed: "",
-        create: true,
-        Stock: "",
-      });
-      toast.success("Venta realizada con exito!");
-      getMeds();
-      // router.push("/homeadmin");
-    } catch (err) {
-      console.log(err);
-      toast.error(err.response.data.message);
-    }
-  };
-
-  const handleChange = (e) => {
-    setMed({
-      ...med,
-      [e.target.name]: e.target.value,
-    });
-  };
+  
 
   const columns = [
     {
@@ -127,42 +104,7 @@ const medicamentos = () => {
         />
       </Box>
       <div>
-        <p>Realizar una venta</p>
-        <form onSubmit={handleSubmit}>
-          <Box sx={{ width: "400px" }}>
-            <TextField
-              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
-              variant="filled"
-              label="Nombre"
-              id="nombre"
-              value={med.NombreMed}
-              name="NombreMed"
-              onChange={handleChange}
-            />
-            <TextField
-              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
-              variant="filled"
-              label="Cantidad"
-              id="Stock"
-              value={med.Stock}
-              name="Stock"
-              type='number'
-              onChange={handleChange}
-            />
-            <TextField
-              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
-              variant="filled"
-              label="Valor"
-              id="valor"
-              name="valor"
-              type='number'
-              onChange={handleChange}
-            />
-            <Button sx={{ float: "right" }} variant="contained" type="submit">
-              Realizar venta
-            </Button>
-          </Box>
-        </form>
+       
       </div>
     </div>
   );
