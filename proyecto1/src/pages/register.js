@@ -70,6 +70,10 @@ const register = () => {
       toast.error(err.response.data.message);
     }
   };
+
+  const sendToHomeAdmin = () =>{
+    router.push("/homeadmin")
+  }
   return (
     <div>
       <Navbar />
@@ -144,14 +148,14 @@ const register = () => {
               name="dom"
               onChange={handleChange}
             />{" "}
-            <Button sx={{ float: "right" }} variant="contained" type="submit">
+            <Button sx={{ marginBottom: 2}} variant="contained" type="submit">
               Dar de alta
             </Button>
           </Box>
         </form>
       </div>
       <div>
-        <p>Baja Cliente</p>
+        <p sx={{marginTop: 5}}>Baja Cliente</p>
         <p>Ingrese:</p>
         <form onSubmit={handleDelete}>
           <Box sx={{ width: "400px" }}>
@@ -164,10 +168,11 @@ const register = () => {
               name="username"
               onChange={handleChangeDelete}
             />
-            <Button sx={{ float: "right" }} variant="contained" type="submit">
+            <Button sx={{   }} variant="contained" type="submit">
               Dar de baja
             </Button>
           </Box>
+          <Button sx={{  marginTop: 3  }} onClick={sendToHomeAdmin} variant="contained" >Volver al inicio</Button>
         </form>
       </div>
     </div>

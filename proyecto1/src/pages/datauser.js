@@ -29,6 +29,7 @@ const datauser = () => {
   const sendToHomeUser = () => {
     router.push("/homeuser");
   };
+  console.log(userInfo);
 
   return (
     <div>
@@ -37,12 +38,11 @@ const datauser = () => {
       </div>
       <h2>Mis datos</h2>
       <div>
+        <h4>Id: {userInfo?._id}</h4>
         <h4>Nombre de usuario: {userInfo?.username} </h4>
-        <h4>Contraseña: {userInfo?.password}</h4>
         <h4>Edad: {userInfo?.edad}</h4>
         <h4>Domicilio: {userInfo?.dom}</h4>
         <h4>Rol: {userInfo?.role}</h4>
-        <h4>Estado: {userInfo?.active}</h4>
       </div>
       <div>
         <Button onClick={sendToHomeUser} variant="contained">

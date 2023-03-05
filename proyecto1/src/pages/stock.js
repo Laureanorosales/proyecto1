@@ -39,7 +39,7 @@ const stock = () => {
       e.preventDefault();
       await axios.put("api/medicamento", medDelete);
       toast.success("Baja realizada con exito!");
-      router.push("/homeadmin");
+      // router.push("/homeadmin");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
@@ -51,7 +51,7 @@ const stock = () => {
       e.preventDefault();
       await axios.post("api/medicamento", med);
       toast.success("Alta realizada con exito!");
-      router.push("/homeadmin");
+      // router.push("/homeadmin");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
