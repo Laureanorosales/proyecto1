@@ -28,6 +28,12 @@ const usuarioSchema = new Schema({
     type: Boolean,
     default: true,
   },
+  edad: {
+    type: "number"
+  },
+  dom: {
+    type: String
+  }
 });
 
 export default models.Usuario || model("Usuario", usuarioSchema);

@@ -98,7 +98,7 @@ const register = () => {
             <TextField
               sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
               variant="filled"
-              label="urol"
+              label="rol"
               id="role"
               value={user.role}
               name="role"
@@ -120,6 +120,24 @@ const register = () => {
               id="email"
               value={user.email}
               name="email"
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="edad"
+              id="edad"
+              value={user.edad}
+              name="edad"
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="domicilio"
+              id="dom"
+              value={user.dom}
+              name="dom"
               onChange={handleChange}
             />{" "}
             <Button sx={{ float: "right" }} variant="contained" type="submit">
