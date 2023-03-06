@@ -19,7 +19,9 @@ const usuarioSchema = new Schema({
     required: [true, "role is mandatory"],
   },
   tel: {
-    type: "number",
+    type: Number,
+    required: [true, "telefono es requerido"],
+    minlength: [8, "Minimo 8 digitos"]
   },
   email: {
     type: String,
@@ -29,7 +31,7 @@ const usuarioSchema = new Schema({
     default: true,
   },
   edad: {
-    type: "number",
+    type: Number,
   },
   dom: {
     type: String,
@@ -37,9 +39,7 @@ const usuarioSchema = new Schema({
   nombre: {
     type: String,
   },
-  apellido: {
-    Type: String,
-  },
+  
 });
 
 export default models.Usuario || model("Usuario", usuarioSchema);

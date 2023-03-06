@@ -11,10 +11,13 @@ export default async (req, res) => {
         const user = await usuario
           .findOne({ username })
           .select(
-            " username password role active email edad dom nombre apellido "
+            " username password role active email edad dom nombre  "
           );
         if (!user) {
           throw new httpError(404, `Usuario no encontrado`);
+        }
+        if (!user.active) {
+          throw new httpError(404, "Usuario dado de baja");
         }
         if (password != user.password) {
           throw new httpError(404, `Contraseña incorrecta`);

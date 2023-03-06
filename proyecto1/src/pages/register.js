@@ -22,7 +22,6 @@ const register = () => {
     edad: "",
     dom: "",
     nombre: "",
-    apellido: ""
   });
   const [userDelete, setUserDelete] = useState({
     username: "",
@@ -65,7 +64,6 @@ const register = () => {
         edad: "",
         dom: "",
         nombre: "",
-        apellido: ""
       });
       toast.success("Alta realizada con exito!");
       // router.push("/homeadmin");
@@ -96,15 +94,6 @@ const register = () => {
               id="nombre"
               value={user.nombre}
               name="nombre"
-              onChange={handleChange}
-            />
-            <TextField
-              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
-              variant="filled"
-              label="Apellido"
-              id="apellido"
-              value={user.apellido}
-              name="apellido"
               onChange={handleChange}
             />
             <TextField
