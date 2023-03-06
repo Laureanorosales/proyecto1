@@ -44,20 +44,37 @@ const homeadmin = () => {
     <div>
       <Navbar />
       <div>
-        <p>Bienvenido {userInfo?.username}</p>
-        <p>Seleccione una opcion</p>
+        <h2>Bienvenido {userInfo?.nombre}</h2>
+        <h2>Seleccione una opcion</h2>
       </div>
       <div>
-        <Button onClick={sendToVenta} variant="contained">
+        <Button
+          sx={{ float: "left",marginRight: 2 }}
+          onClick={sendToVenta}
+          variant="contained"
+        >
           Realizar una Venta
         </Button>
-        <Button onClick={sendToRegister} variant="contained">
+
+        <Button
+          sx={{ float: "left" ,marginRight: 2 }}
+          onClick={sendToRegister}
+          variant="contained"
+        >
           Gestión de cliente
         </Button>
-        <Button onClick={sendToStock} variant="contained">
+        <Button
+          sx={{float: "left", marginRight: 2 }}
+          onClick={sendToStock}
+          variant="contained"
+        >
           Administrar stock
         </Button>
-        <Button onClick={sendToData} variant="contained">
+        <Button
+          sx={{float: "left", marginRight: 2 }}
+          onClick={sendToData}
+          variant="contained"
+        >
           Mis Datos
         </Button>
       </div>

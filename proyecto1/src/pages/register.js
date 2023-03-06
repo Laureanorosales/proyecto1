@@ -21,6 +21,8 @@ const register = () => {
     email: "",
     edad: "",
     dom: "",
+    nombre: "",
+    apellido: ""
   });
   const [userDelete, setUserDelete] = useState({
     username: "",
@@ -62,18 +64,20 @@ const register = () => {
         email: "",
         edad: "",
         dom: "",
+        nombre: "",
+        apellido: ""
       });
       toast.success("Alta realizada con exito!");
-      router.push("/homeadmin");
+      // router.push("/homeadmin");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
     }
   };
 
-  const sendToHomeAdmin = () =>{
-    router.push("/homeadmin")
-  }
+  const sendToHomeAdmin = () => {
+    router.push("/homeadmin");
+  };
   return (
     <div>
       <Navbar />
@@ -85,6 +89,24 @@ const register = () => {
       <div>
         <form onSubmit={handleSubmit}>
           <Box sx={{ width: "400px" }}>
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="Nombre"
+              id="nombre"
+              value={user.nombre}
+              name="nombre"
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="Apellido"
+              id="apellido"
+              value={user.apellido}
+              name="apellido"
+              onChange={handleChange}
+            />
             <TextField
               sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
               variant="filled"
@@ -148,14 +170,14 @@ const register = () => {
               name="dom"
               onChange={handleChange}
             />{" "}
-            <Button sx={{ marginBottom: 2}} variant="contained" type="submit">
+            <Button sx={{ marginBottom: 2 }} variant="contained" type="submit">
               Dar de alta
             </Button>
           </Box>
         </form>
       </div>
       <div>
-        <p sx={{marginTop: 5}}>Baja Cliente</p>
+        <p sx={{ marginTop: 5 }}>Baja Cliente</p>
         <p>Ingrese:</p>
         <form onSubmit={handleDelete}>
           <Box sx={{ width: "400px" }}>
@@ -168,11 +190,17 @@ const register = () => {
               name="username"
               onChange={handleChangeDelete}
             />
-            <Button sx={{   }} variant="contained" type="submit">
+            <Button sx={{}} variant="contained" type="submit">
               Dar de baja
             </Button>
           </Box>
-          <Button sx={{  marginTop: 3  }} onClick={sendToHomeAdmin} variant="contained" >Volver al inicio</Button>
+          <Button
+            sx={{ marginTop: 3 }}
+            onClick={sendToHomeAdmin}
+            variant="contained"
+          >
+            Volver al inicio
+          </Button>
         </form>
       </div>
     </div>

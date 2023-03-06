@@ -58,6 +58,7 @@ const stock = () => {
     }
   };
 
+  
   return (
     <div>
       <Navbar />

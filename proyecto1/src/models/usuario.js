@@ -29,11 +29,17 @@ const usuarioSchema = new Schema({
     default: true,
   },
   edad: {
-    type: "number"
+    type: "number",
   },
   dom: {
-    type: String
-  }
+    type: String,
+  },
+  nombre: {
+    type: String,
+  },
+  apellido: {
+    Type: String,
+  },
 });
 
 export default models.Usuario || model("Usuario", usuarioSchema);
