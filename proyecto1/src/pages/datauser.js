@@ -14,11 +14,8 @@ const datauser = () => {
     const userData = localStorage.getItem("user");
     setUser(userData?.trim());
     const isLogged = localStorage.getItem("isLogged");
-    setLogged(JSON.parse(isLogged));
-    if (!logged) {
-      router.push("/");
-    }
-  }, [user, logged]);
+    setLogged(JSON.parse(isLogged)); 
+  }, [logged]);
   
   const userInfo = JSON.parse(user ? user : null);
   console.log('userdata', typeof logged)

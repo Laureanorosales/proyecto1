@@ -21,7 +21,7 @@ export default async (req, res) => {
         if (!search) {
           const medic = await medicamentos
             .find({})
-            .select("NombreMed LaboratorioDes Valor Stock");
+            .select("NombreMed LaboratorioDes Valor Stock active");
           if (!medic) {
             throw new httpError(404, `Medicamento no encontrado`);
           }

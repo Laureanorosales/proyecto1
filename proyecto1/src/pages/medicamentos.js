@@ -47,8 +47,6 @@ const medicamentos = () => {
     setSearch(e.target.value);
   };
 
-  
-
   const columns = [
     {
       field: "NombreMed",

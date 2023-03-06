@@ -82,6 +82,8 @@ const ventas = () => {
     });
   };
 
+  const rows = (meds || []).filter(row => row.Stock > 0 && row.active )
+
   return (
     <div>
       <Navbar />
@@ -127,7 +129,7 @@ const ventas = () => {
            
       <Box sx={{ height: 400, width: "50%" }}>
         <DataGrid
-          rows={meds}
+          rows={rows}
           columns={columns}
           getRowId={(row) => row._id}
           pageSize={5}
