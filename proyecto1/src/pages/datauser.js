@@ -26,8 +26,8 @@ const datauser = () => {
 
   const userInfo = JSON.parse(user ? user : null);
 
-  const sendToHomeUser = () => {
-    router.push("/homeuser");
+  const retroceder = () => {
+    window.history.back();
   };
   console.log(userInfo);
 
@@ -48,7 +48,7 @@ const datauser = () => {
         <h4>Rol: {userInfo?.role}</h4>
       </div>
       <div>
-        <Button onClick={sendToHomeUser} variant="contained">
+        <Button onClick={retroceder} variant="contained">
           Volver al inicio
         </Button>
       </div>
