@@ -12,7 +12,7 @@ const datauser = () => {
 
   useEffect(() => {
     const isLogged = localStorage.getItem("isLogged");
-    if (!isLogged) {
+    if (!logged) {
       router.push("/");
     }
   }, []);

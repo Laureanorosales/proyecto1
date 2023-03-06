@@ -11,18 +11,18 @@ const homeuser = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const isLogged = localStorage.getItem("isLogged");
-    if (!isLogged) {
-      router.push("/");
-    }
-  }, []);
-
-  useEffect(() => {
     const userData = localStorage.getItem("user");
     setUser(userData?.trim());
     const isLogged = localStorage.getItem("isLogged");
     setLogged(isLogged);
   }, [user, logged]);
+
+  useEffect(() => {
+    const isLogged = localStorage.getItem("isLogged");
+    if (!isLogged) {
+      router.push("/");
+    }
+  }, []);
 
   const userInfo = JSON.parse(user ? user : null);
 

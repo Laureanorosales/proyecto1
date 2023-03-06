@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 //@mui
 import { TextField, Button } from "@mui/material";
@@ -12,6 +12,22 @@ import { useRouter } from "next/router";
 import { Box } from "@mui/system";
 
 const register = () => {
+  const [logged, setLogged] = useState(false);
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    setUser(userData?.trim());
+    const isLogged = localStorage.getItem("isLogged");
+    setLogged(isLogged);
+  }, [logged]);
+
+  useEffect(() => {
+    const isLogged = localStorage.getItem("isLogged");
+    if (!isLogged) {
+      router.push("/");
+    }
+  }, []);
+
   const router = useRouter();
   const [user, setUser] = useState({
     username: "",

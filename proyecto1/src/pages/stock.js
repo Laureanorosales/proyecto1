@@ -11,6 +11,21 @@ import axios from "axios";
 //next
 import { useRouter } from "next/router";
 const stock = () => {
+  const [logged, setLogged] = useState(false);
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    setUser(userData?.trim());
+    const isLogged = localStorage.getItem("isLogged");
+    setLogged(isLogged);
+  }, [logged]);
+
+  useEffect(() => {
+    const isLogged = localStorage.getItem("isLogged");
+    if (!logged) {
+      router.push("/");
+    }
+  }, []);
   const router = useRouter();
   const [med, setMed] = useState({
     NombreMed: "",
@@ -58,7 +73,6 @@ const stock = () => {
     }
   };
 
-  
   return (
     <div>
       <Navbar />
@@ -106,7 +120,7 @@ const stock = () => {
             />
           </div>
         </Box>
-        <Button  type="submit" variant="contained">
+        <Button type="submit" variant="contained">
           Dar de Alta
         </Button>
       </form>
