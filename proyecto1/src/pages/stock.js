@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Navbar from "@/components/Navbar";
@@ -11,7 +11,9 @@ import axios from "axios";
 //next
 import { useRouter } from "next/router";
 const stock = () => {
+  const [user, setUser] = useState();
   const [logged, setLogged] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -22,11 +24,11 @@ const stock = () => {
 
   useEffect(() => {
     const isLogged = localStorage.getItem("isLogged");
-    if (!logged) {
+    if (!isLogged) {
       router.push("/");
     }
   }, []);
-  const router = useRouter();
+
   const [med, setMed] = useState({
     NombreMed: "",
     LaboratorioDes: "",
@@ -72,7 +74,9 @@ const stock = () => {
       toast.error(err.response.data.message);
     }
   };
-
+  const sendToHomeAdmin = () => {
+    router.push("/homeadmin");
+  };
   return (
     <div>
       <Navbar />
@@ -148,6 +152,11 @@ const stock = () => {
           Dar de Baja
         </Button>
       </form>
+      <br></br>
+      <br></br>
+      <Button onClick={sendToHomeAdmin} variant="contained">
+        Volver al inicio
+      </Button>
     </div>
   );
 };
