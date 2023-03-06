@@ -44,7 +44,7 @@ const homeadmin = () => {
     <div>
       <Navbar />
       <div>
-        <h2>Bienvenido {userInfo?.nombre}</h2>
+        <h2>Bienvenido {userInfo?.nombre}(admin)</h2>
         <h2>Seleccione una opcion</h2>
       </div>
       <div>

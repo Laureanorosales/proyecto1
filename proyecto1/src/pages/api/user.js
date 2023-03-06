@@ -21,7 +21,7 @@ export default async (req, res) => {
         if (!userEnc) {
           throw new httpError(404, `Usuario no encontrado`);
         }
-        await usuario.updateOne({ username }, { active: false });
+        await usuario.updateOne({ username }, { active: true });
         res.status(200).send({ message: "success" });
       } catch (err) {
         res.status(err?.status || 500).send({ message: err.message });

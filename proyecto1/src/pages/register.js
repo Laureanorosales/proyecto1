@@ -106,7 +106,7 @@ const register = () => {
             <TextField
               sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
               variant="filled"
-              label="Nombre"
+              label="Nombre Completo"
               id="nombre"
               value={user.nombre}
               name="nombre"
