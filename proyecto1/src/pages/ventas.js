@@ -81,6 +81,10 @@ const ventas = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const sendToHomeAdmin = () => {
+    router.push("/homeadmin");
+  };
+  
   const rows = (meds || []).filter(row => row.Stock > 0 && row.active )
   return (
     <div>
@@ -127,7 +131,7 @@ const ventas = () => {
            
       <Box sx={{ height: 400, width: "50%" }}>
         <DataGrid
-          rows={meds}
+          rows={rows}
           columns={columns}
           getRowId={(row) => row._id}
           pageSize={5}
