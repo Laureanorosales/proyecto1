@@ -11,18 +11,18 @@ const homeuser = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const isLogged = localStorage.getItem("isLogged");
-    if (!isLogged) {
-      router.push("/");
-    }
-  }, []);
-
-  useEffect(() => {
     const userData = localStorage.getItem("user");
     setUser(userData?.trim());
     const isLogged = localStorage.getItem("isLogged");
     setLogged(isLogged);
   }, [user, logged]);
+
+  useEffect(() => {
+    const isLogged = localStorage.getItem("isLogged");
+    if (!isLogged) {
+      router.push("/");
+    }
+  }, []);
 
   const userInfo = JSON.parse(user ? user : null);
 
@@ -37,14 +37,22 @@ const homeuser = () => {
     <div>
       <Navbar logged={logged} />
       <div>
-        <p>Bienvenido {userInfo?.username}(user)</p>
-        <p>Seleccione una opcion</p>
+        <h2>Bienvenido {userInfo?.nombre}(user)</h2>
+        <h2>Seleccione una opcion</h2>
       </div>
       <div>
-        <Button onClick={sendToMedicamentos} variant="contained">
+        <Button
+          sx={{ float: "left", marginRight: 2 }}
+          onClick={sendToMedicamentos}
+          variant="contained"
+        >
           Buscar Medicamento
         </Button>
-        <Button onClick={sendToDatos} variant="contained">
+        <Button
+          sx={{ float: "left", marginRight: 2 }}
+          onClick={sendToDatos}
+          variant="contained"
+        >
           Mis Datos
         </Button>
       </div>

@@ -19,21 +19,35 @@ const usuarioSchema = new Schema({
     required: [true, "role is mandatory"],
   },
   tel: {
-    type: "number",
+    type: Number,
+    required: [true, "telefono es requerido"],
+    minlength: [8, "Minimo 8 digitos"],
+    maxlength: [15, "Maximo 15 digitos"]
   },
   email: {
     type: String,
+    required: [true, ""]
   },
   active: {
     type: Boolean,
     default: true,
+   
   },
   edad: {
-    type: "number"
+    type: Number,
+    required: [true, "Ingrese una edad"],
+    minlength:[2, "Minimo 2 digitos"]
   },
   dom: {
-    type: String
-  }
+    type: String,
+    required: [true, "Ingrese un domicilio"]
+  },
+  nombre: {
+    type: String,
+    required: ["Ingrese un nombre"],
+    minlength:[3, "Ingrese un nombre valido"]
+  },
+  
 });
 
 export default models.Usuario || model("Usuario", usuarioSchema);

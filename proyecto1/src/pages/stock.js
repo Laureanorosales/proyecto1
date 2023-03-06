@@ -11,6 +11,21 @@ import axios from "axios";
 //next
 import { useRouter } from "next/router";
 const stock = () => {
+  const [logged, setLogged] = useState(false);
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    setUser(userData?.trim());
+    const isLogged = localStorage.getItem("isLogged");
+    setLogged(isLogged);
+  }, [logged]);
+
+  useEffect(() => {
+    const isLogged = localStorage.getItem("isLogged");
+    if (!logged) {
+      router.push("/");
+    }
+  }, []);
   const router = useRouter();
   const [med, setMed] = useState({
     NombreMed: "",
@@ -39,7 +54,7 @@ const stock = () => {
       e.preventDefault();
       await axios.put("api/medicamento", medDelete);
       toast.success("Baja realizada con exito!");
-      router.push("/homeadmin");
+      // router.push("/homeadmin");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
@@ -51,7 +66,7 @@ const stock = () => {
       e.preventDefault();
       await axios.post("api/medicamento", med);
       toast.success("Alta realizada con exito!");
-      router.push("/homeadmin");
+      // router.push("/homeadmin");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
@@ -105,7 +120,7 @@ const stock = () => {
             />
           </div>
         </Box>
-        <Button  type="submit" variant="contained">
+        <Button type="submit" variant="contained">
           Dar de Alta
         </Button>
       </form>

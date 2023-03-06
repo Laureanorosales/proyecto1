@@ -7,8 +7,8 @@ export default async (req, res) => {
   switch (req.method) {
     case "POST":
       try {
-        const { username, password, role, email, tel, edad, dom } = req.body;
-        const user = { username, password, role, email, tel, edad, dom };
+        const { username, password, role, email, tel, edad, dom, nombre, apellido } = req.body;
+        const user = { username, password, role, email, tel, edad, dom, nombre, apellido };
         const newUser = await usuario.create(user);
         res.status(200).send({ newUser });
       } catch (err) {

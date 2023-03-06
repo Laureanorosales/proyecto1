@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 //@mui
 import { TextField, Button } from "@mui/material";
@@ -12,6 +12,22 @@ import { useRouter } from "next/router";
 import { Box } from "@mui/system";
 
 const register = () => {
+  const [logged, setLogged] = useState(false);
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    setUser(userData?.trim());
+    const isLogged = localStorage.getItem("isLogged");
+    setLogged(isLogged);
+  }, [logged]);
+
+  useEffect(() => {
+    const isLogged = localStorage.getItem("isLogged");
+    if (!isLogged) {
+      router.push("/");
+    }
+  }, []);
+
   const router = useRouter();
   const [user, setUser] = useState({
     username: "",
@@ -21,6 +37,7 @@ const register = () => {
     email: "",
     edad: "",
     dom: "",
+    nombre: "",
   });
   const [userDelete, setUserDelete] = useState({
     username: "",
@@ -62,25 +79,39 @@ const register = () => {
         email: "",
         edad: "",
         dom: "",
+        nombre: "",
       });
       toast.success("Alta realizada con exito!");
-      router.push("/homeadmin");
+      // router.push("/homeadmin");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
     }
+  };
+
+  const sendToHomeAdmin = () => {
+    router.push("/homeadmin");
   };
   return (
     <div>
       <Navbar />
       <ToastContainer position="top-center" theme="colored" autoClose={2000} />
       <div>
-        <p>Alta de cliente</p>
-        <p>Ingrese:</p>
+        <h2>Alta de cliente</h2>
+        <h2>Ingrese:</h2>
       </div>
       <div>
         <form onSubmit={handleSubmit}>
           <Box sx={{ width: "400px" }}>
+            <TextField
+              sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
+              variant="filled"
+              label="Nombre"
+              id="nombre"
+              value={user.nombre}
+              name="nombre"
+              onChange={handleChange}
+            />
             <TextField
               sx={{ width: "100%", marginBottom: "10px", marginTop: "20px" }}
               variant="filled"
@@ -144,15 +175,15 @@ const register = () => {
               name="dom"
               onChange={handleChange}
             />{" "}
-            <Button sx={{ float: "right" }} variant="contained" type="submit">
+            <Button sx={{ marginBottom: 2 }} variant="contained" type="submit">
               Dar de alta
             </Button>
           </Box>
         </form>
       </div>
       <div>
-        <p>Baja Cliente</p>
-        <p>Ingrese:</p>
+        <h2 sx={{ marginTop: 5 }}>Baja Cliente</h2>
+        <h2>Ingrese:</h2>
         <form onSubmit={handleDelete}>
           <Box sx={{ width: "400px" }}>
             <TextField
@@ -164,10 +195,17 @@ const register = () => {
               name="username"
               onChange={handleChangeDelete}
             />
-            <Button sx={{ float: "right" }} variant="contained" type="submit">
+            <Button sx={{}} variant="contained" type="submit">
               Dar de baja
             </Button>
           </Box>
+          <Button
+            sx={{ marginTop: 3 }}
+            onClick={sendToHomeAdmin}
+            variant="contained"
+          >
+            Volver al inicio
+          </Button>
         </form>
       </div>
     </div>
