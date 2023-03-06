@@ -17,7 +17,7 @@ const ventas = () => {
   const [search, setSearch] = useState("");
   const [logged, setLogged] = useState(false);
   const router = useRouter();
-  
+
   const getMeds = async () => {
     const { data } = await axios.get("/api/medicamento", {
       params: { search },
@@ -81,16 +81,14 @@ const ventas = () => {
       [e.target.name]: e.target.value,
     });
   };
-
   const rows = (meds || []).filter(row => row.Stock > 0 && row.active )
-
   return (
     <div>
       <Navbar />
       <ToastContainer position="top-center" theme="colored" autoClose={2000} />
       <br />
       <div>
-      <p>Realizar una venta</p>
+        <p>Realizar una venta</p>
         <form onSubmit={handleSubmit}>
           <Box sx={{ width: "400px" }}>
             <TextField
@@ -109,7 +107,7 @@ const ventas = () => {
               id="Stock"
               value={med.Stock}
               name="Stock"
-              type='number'
+              type="number"
               onChange={handleChange}
             />
             <TextField
@@ -118,10 +116,10 @@ const ventas = () => {
               label="Valor"
               id="valor"
               name="valor"
-              type='number'
+              type="number"
               onChange={handleChange}
             />
-            <Button  variant="contained" type="submit">
+            <Button variant="contained" type="submit">
               Realizar venta
             </Button>
             </Box>
@@ -129,7 +127,7 @@ const ventas = () => {
            
       <Box sx={{ height: 400, width: "50%" }}>
         <DataGrid
-          rows={rows}
+          rows={meds}
           columns={columns}
           getRowId={(row) => row._id}
           pageSize={5}
@@ -140,6 +138,10 @@ const ventas = () => {
       </Box>
      
       </div>
+      <Button onClick={sendToHomeAdmin} variant="contained">
+        Volver al inicio
+      </Button>
+      
     </div>
   );
 };
