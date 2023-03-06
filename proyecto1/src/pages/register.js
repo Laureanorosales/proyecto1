@@ -83,8 +83,8 @@ const register = () => {
       <Navbar />
       <ToastContainer position="top-center" theme="colored" autoClose={2000} />
       <div>
-        <p>Alta de cliente</p>
-        <p>Ingrese:</p>
+        <h2>Alta de cliente</h2>
+        <h2>Ingrese:</h2>
       </div>
       <div>
         <form onSubmit={handleSubmit}>
@@ -177,8 +177,8 @@ const register = () => {
         </form>
       </div>
       <div>
-        <p sx={{ marginTop: 5 }}>Baja Cliente</p>
-        <p>Ingrese:</p>
+        <h2 sx={{ marginTop: 5 }}>Baja Cliente</h2>
+        <h2>Ingrese:</h2>
         <form onSubmit={handleDelete}>
           <Box sx={{ width: "400px" }}>
             <TextField
